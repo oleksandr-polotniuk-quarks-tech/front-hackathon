@@ -1,3 +1,5 @@
+import { ContentType } from '../enum/content-type.enum';
+
 export type ContentModel = ImageContent | TextContent | BlockContent | EmbedContent
 
 export interface ImageContent {
@@ -20,11 +22,4 @@ export interface EmbedContent {
   url: string;
 }
 
-export enum ContentType {
-  Image = 'image',
-  Title = 'title',
-  Paragraph = 'paragraph',
-  Adv = 'adv',
-  Video = 'video',
-  Embed = 'embed'
-}
+

@@ -46,14 +46,11 @@
         behavior: "smooth",
       });
     }, scrollDelay);
-
-    setInterval(() => {
-      console.clear()
-    }, 5000)
-    setInterval(() => {
-      console.log(window.performance.memory)
-    }, 100)
   })();
+
+  window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+  }
 </script>
 <script>window.twttr = (function (d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0],

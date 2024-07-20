@@ -28,20 +28,18 @@ export declare let googletag: { pubads: () => any; destroySlots: (slots: any) =>
 })
 export class AppComponent implements AfterViewChecked {
 
-  @ViewChildren(AdvComponent)
-  public advs?: QueryList<AdvComponent>;
-
   public contentList$: Observable<ContentModel[]>;
 
-  private _viewCheckedCount = 0;
+  @ViewChildren(AdvComponent)
+  private _advList?: QueryList<AdvComponent>;
 
   private _advInitObserver = new Subject<void>();
 
   constructor(
-    private readonly _contentService: ContentService,
-    private readonly _renderer2: Renderer2,
     @Inject(DOCUMENT)
     private readonly _document: Document,
+    private readonly _contentService: ContentService,
+    private readonly _renderer2: Renderer2,
     private readonly _cdr: ChangeDetectorRef,
   ) {
     this.contentList$ = this._contentService.getContentList();
@@ -63,7 +61,7 @@ export class AppComponent implements AfterViewChecked {
           script.type = 'text/javascript';
           script.src = 'adv.min.js';
           this._renderer2.appendChild(this._document.body, script);
-          script.onload = () => this.advs?.forEach((adv) => adv.fetchAdv());
+          script.onload = () => this._advList?.forEach((adv) => adv.fetchAdv());
           return of(void 0);
         }),
       )

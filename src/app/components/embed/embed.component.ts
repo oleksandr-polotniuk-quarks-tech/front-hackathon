@@ -18,10 +18,7 @@ export class EmbedComponent implements OnInit {
 
   public ngOnInit(): void {
     const id = this.url().split('/').at(-1);
-    (window as any).twttr.widgets.createTweet(
-      String(id),
-      this._element.nativeElement,
-    );
+    (window as any).twttr.widgets.createTweet(String(id), this._element.nativeElement);
   }
 
 }

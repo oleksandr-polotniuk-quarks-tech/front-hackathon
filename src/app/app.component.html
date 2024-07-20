@@ -20,10 +20,14 @@
               ></app-adv>
             }
             @case ('video') {
-              <app-video class="video" [id]="getId(item)"></app-video>
+              <app-video class="video"
+                         [id]="getId(item)"
+              ></app-video>
             }
             @case ('embed') {
-              <app-embed [url]="getUrl(item)" [attr.data-frame-url]="getUrl(item)"></app-embed>
+              <app-embed [url]="getUrl(item)"
+                         [attr.data-frame-url]="getUrl(item)"
+              ></app-embed>
             }
           }
         } @placeholder {
