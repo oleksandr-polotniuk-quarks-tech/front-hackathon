@@ -1,4 +1,4 @@
-import { Component, effect, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 export interface IPDJSJAPI {
   que: any[];
@@ -26,22 +26,21 @@ export class AdvComponent {
   public id = input.required<string>();
 
   constructor() {
-    effect(() => {
-      window.pbjs.que.push(() => {
-        window.pbjs.requestBids({
-          timeout: 1000,
-          adUnitCodes: [this.id()],
-          bidsBackHandler: () => {
-            window.pbjs.setTargetingForGPTAsync([this.id()]);
+  }
 
-            const target = googletag
-              .pubads()
-              .getSlots()
-              .find((slot: any) => slot.getSlotElementId() === this.id());
-
-            target && googletag.pubads().refresh([target]);
-          },
-        });
+  public fetchAdv(): void {
+    window.pbjs.que.push(() => {
+      window.pbjs.requestBids({
+        timeout: 1000,
+        adUnitCodes: [this.id()],
+        bidsBackHandler: () => {
+          window.pbjs.setTargetingForGPTAsync([this.id()]);
+          const target = googletag
+            .pubads()
+            .getSlots()
+            .find((slot: any) => slot.getSlotElementId() === this.id());
+          target && googletag.pubads().refresh([target]);
+        },
       });
     });
   }

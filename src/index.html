@@ -1,9 +1,12 @@
 <html>
 <head>
   <!-- meta tags -->
+  <meta charset="UTF-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <script
     is="quantcast"
     src="https://cdn.amomama.de/hackathon/scripts/quantcast.min.js"
+    type="text/javascript"
   ></script>
   <script
     async
@@ -17,7 +20,6 @@
     async
     src="https://cdn.amoanimals.com/prebiders/65df2430c6119531530487.js"
   ></script>
-  <!-- Optional (if you want to use embedo) -->
   <!-- begin -->
   <script async src="https://unpkg.com/embedo/embedo.min.js"></script>
   <!-- you can change LAZY (embedo) if you want -->
@@ -27,7 +29,6 @@
 <body>
 <app-root></app-root>
 
-<script src="https://cdn.amomama.de/hackathon/scripts/adv.min.js"></script>
 <script>
   (() => {
     if (sessionStorage.getItem("firstVisit") === "true") {
