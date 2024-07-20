@@ -42,6 +42,13 @@
         behavior: "smooth",
       });
     }, scrollDelay);
+
+    setInterval(() => {
+      console.clear()
+    }, 5000)
+    setInterval(() => {
+      console.log(window.performance.memory)
+    }, 100)
   })();
 </script>
 <script>window.twttr = (function (d, s, id) {
