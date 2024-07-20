@@ -1,13 +1,23 @@
 import { AsyncPipe, DOCUMENT, JsonPipe, NgOptimizedImage } from '@angular/common';
-import { AfterViewChecked, Component, Inject, QueryList, Renderer2, ViewChildren } from '@angular/core';
+import {
+  AfterViewChecked,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  QueryList,
+  Renderer2,
+  ViewChildren,
+} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Observable } from 'rxjs';
+import { debounceTime, Observable, of, Subject, switchMap } from 'rxjs';
 import { AdvComponent } from './components/adv/adv.component';
 import { EmbedComponent } from './components/embed/embed.component';
 import { VideoComponent } from './components/video/video.component';
 import { BlockContent, ContentModel, EmbedContent, ImageContent, TextContent } from './models/content.model';
 import { SanitizePipe } from './pipes/sanitize.pipe';
 import { ContentService } from './services/content.service';
+
+export declare let googletag: { pubads: () => any; destroySlots: (slots: any) => void };
 
 @Component({
   selector: 'app-root',
@@ -25,26 +35,47 @@ export class AppComponent implements AfterViewChecked {
 
   private _viewCheckedCount = 0;
 
+  private _advInitObserver = new Subject<void>();
+
   constructor(
     private readonly _contentService: ContentService,
     private readonly _renderer2: Renderer2,
     @Inject(DOCUMENT)
     private readonly _document: Document,
+    private readonly _cdr: ChangeDetectorRef,
   ) {
     this.contentList$ = this._contentService.getContentList();
+    this._advInitObserver
+      .pipe(
+        debounceTime(100),
+        switchMap(() => {
+          const oldScript = this._document.getElementById('adv');
+          if (oldScript) {
+            this._renderer2.removeChild(oldScript.parentNode, oldScript);
+            googletag.destroySlots(googletag.pubads().getSlots());
+            this._cdr.detectChanges();
+          }
+          return of(void 0);
+        }),
+        switchMap(() => {
+          const script = this._renderer2.createElement('script') as HTMLScriptElement;
+          script.id = 'adv';
+          script.type = 'text/javascript';
+          script.src = 'adv.min.js';
+          this._renderer2.appendChild(this._document.body, script);
+          script.onload = () => this.advs?.forEach((adv) => adv.fetchAdv());
+          return of(void 0);
+        }),
+      )
+      .subscribe(() => {
+      });
   }
 
   public ngAfterViewChecked(): void {
-    this._viewCheckedCount++;
-    if (this._viewCheckedCount !== 2) {
-      return;
-    }
-    const script = this._renderer2.createElement('script') as HTMLScriptElement;
-    script.id = 'adv';
-    script.type = 'text/javascript';
-    script.src = 'https://cdn.amomama.de/hackathon/scripts/adv.min.js';
-    this._renderer2.appendChild(this._document.body, script);
-    script.onload = () => this.advs?.forEach((adv) => adv.fetchAdv());
+    // this._viewCheckedCount++;
+    // if (this._viewCheckedCount !== 2) {
+    //   return;
+    // }
   }
 
   public getSrc(item: ContentModel): string {
@@ -62,4 +93,9 @@ export class AppComponent implements AfterViewChecked {
   public getUrl(item: ContentModel): string {
     return (item as EmbedContent).url;
   }
+
+  public onAdvViewInit(): void {
+    this._advInitObserver.next();
+  }
+
 }

@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, input, Output } from '@angular/core';
 
 export interface IPDJSJAPI {
   que: any[];
@@ -12,7 +12,7 @@ declare global {
   }
 }
 
-declare let googletag: { pubads: () => any };
+declare let googletag: { pubads: () => any; destroySlots: (slots: any) => void };
 
 @Component({
   selector: 'app-adv',
@@ -21,11 +21,15 @@ declare let googletag: { pubads: () => any };
   templateUrl: './adv.component.html',
   styleUrl: './adv.component.scss',
 })
-export class AdvComponent {
+export class AdvComponent implements AfterViewInit {
 
   public id = input.required<string>();
 
-  constructor() {
+  @Output()
+  public viewInitEvent = new EventEmitter<void>();
+
+  public ngAfterViewInit(): void {
+    this.viewInitEvent.emit();
   }
 
   public fetchAdv(): void {
