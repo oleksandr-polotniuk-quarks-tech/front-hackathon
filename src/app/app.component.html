@@ -11,10 +11,11 @@
         <p>{{ getContent(item) }}</p>
       }
       @case ('adv') {
-        <div [id]="getId(item)"></div>
+        <app-adv [id]="getId(item)"
+        ></app-adv>
       }
       @case ('video') {
-        <div [id]="getId(item)"></div>
+        <app-video [id]="getId(item)"></app-video>
       }
       @case ('embed') {
         <embed [src]="getUrl(item) | sanitize : 'resourceUrl'">

@@ -2,6 +2,8 @@ import { AsyncPipe, JsonPipe, NgOptimizedImage } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AdvComponent } from './components/adv/adv.component';
+import { VideoComponent } from './components/video/video.component';
 import { BlockContent, ContentModel, EmbedContent, ImageContent, TextContent } from './models/content.model';
 import { SanitizePipe } from './pipes/sanitize.pipe';
 import { ContentService } from './services/content.service';
@@ -9,7 +11,7 @@ import { ContentService } from './services/content.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, AsyncPipe, JsonPipe, NgOptimizedImage, SanitizePipe],
+  imports: [RouterOutlet, AsyncPipe, JsonPipe, NgOptimizedImage, SanitizePipe, AdvComponent, VideoComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
