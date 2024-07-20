@@ -17,6 +17,12 @@
     async
     src="https://cdn.amoanimals.com/prebiders/65df2430c6119531530487.js"
   ></script>
+  <!-- Optional (if you want to use embedo) -->
+  <!-- begin -->
+  <script async src="https://unpkg.com/embedo/embedo.min.js"></script>
+  <!-- you can change LAZY (embedo) if you want -->
+  <script src="https://cdn.amomama.de/hackathon/scripts/lazy-embedo.js"></script>
+  <!-- end -->
 </head>
 <body>
 <app-root></app-root>
@@ -47,6 +53,50 @@
   //     },
   //   });
   // });npm install @types/protobufjs --save
+
+  (() => {
+    if (sessionStorage.getItem("firstVisit") === "true") {
+      alert("RELOAD!");
+      sessionStorage.removeItem("firstVisit");
+    }
+
+    sessionStorage.setItem("firstVisit", "true");
+
+    const scrollDelay = 350;
+    const scrollDistance = 15;
+    const intervalScroll = setInterval(() => {
+      window.scroll({
+        top: window.scrollY + scrollDistance,
+        left: 0,
+        behavior: "smooth",
+      });
+    }, scrollDelay);
+
+    const waitEmbedo = setInterval(() => {
+      if (window.Embedo) {
+        clearInterval(waitEmbedo);
+
+        const embedo = new Embedo({twitter: true});
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                embedo.load(entry.target, entry.target.dataset.frameUrl);
+                embedo.render();
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          {threshold: 1, rootMargin: `${window.innerHeight}px`}
+        );
+
+        document.querySelectorAll("[data-frame-url]").forEach((element) => {
+          observer.observe(element);
+        });
+      }
+    });
+  })();
 </script>
 </body>
 </html>
