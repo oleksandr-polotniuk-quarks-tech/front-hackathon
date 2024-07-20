@@ -1,39 +1,37 @@
-<div class="root">
-  <main class="root__main">
-    @if (contentList$| async; as list) {
-      @for (item of list; track $index) {
-        @defer (on viewport) {
-          @switch (item.type) {
-            @case ('image') {
-              <img [src]="getSrc(item) | sanitize : 'resourceUrl'" alt="">
-            }
-            @case ('title') {
-              <h1>{{ getContent(item) }}</h1>
-            }
-            @case ('paragraph') {
-              <p>{{ getContent(item) }}</p>
-            }
-            @case ('adv') {
-              <app-adv class="adv"
-                       [id]="getId(item)"
-                       (viewInitEvent)="onAdvViewInit()"
-              ></app-adv>
-            }
-            @case ('video') {
-              <app-video class="video"
-                         [id]="getId(item)"
-              ></app-video>
-            }
-            @case ('embed') {
-              <app-embed [url]="getUrl(item)"
-                         [attr.data-frame-url]="getUrl(item)"
-              ></app-embed>
-            }
+<main class="root">
+  @if (contentList$| async; as list) {
+    @for (item of list; track $index) {
+      @defer (on viewport) {
+        @switch (item.type) {
+          @case ('image') {
+            <img [src]="getSrc(item) | sanitize : 'resourceUrl'" alt="">
           }
-        } @placeholder {
-          <div>...</div>
+          @case ('title') {
+            <h1>{{ getContent(item) }}</h1>
+          }
+          @case ('paragraph') {
+            <p>{{ getContent(item) }}</p>
+          }
+          @case ('adv') {
+            <app-adv class="adv"
+                     [id]="getId(item)"
+                     (viewInitEvent)="onAdvViewInit()"
+            ></app-adv>
+          }
+          @case ('video') {
+            <app-video class="video"
+                       [id]="getId(item)"
+            ></app-video>
+          }
+          @case ('embed') {
+            <app-embed [url]="getUrl(item)"
+                       [attr.data-frame-url]="getUrl(item)"
+            ></app-embed>
+          }
         }
+      } @placeholder {
+        <div>...</div>
       }
     }
-  </main>
-</div>
+  }
+</main>

@@ -2,6 +2,14 @@
   display: block;
 }
 
+.root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+
 img {
   position: relative !important;
   max-width: 100%;

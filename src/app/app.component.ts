@@ -45,7 +45,7 @@ export class AppComponent implements AfterViewChecked {
     this.contentList$ = this._contentService.getContentList();
     this._advInitObserver
       .pipe(
-        debounceTime(100),
+        debounceTime(500),
         switchMap(() => {
           const oldScript = this._document.getElementById('adv');
           if (oldScript) {
