@@ -14,7 +14,6 @@ import { ContentService } from './services/content.service';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'hackathon';
 
   public contentList$: Observable<ContentModel[]>;
 
@@ -35,7 +34,6 @@ export class AppComponent {
   public getId(item: ContentModel): string {
     return (item as BlockContent).id;
   }
-
 
   public getUrl(item: ContentModel): string {
     return (item as EmbedContent).url;

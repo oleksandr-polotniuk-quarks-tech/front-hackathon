@@ -8,7 +8,6 @@ import { ContentModel } from '../models/content.model';
 })
 export class ContentService {
 
-
   private _contentList$ = new BehaviorSubject<ContentModel[] | null>(null);
 
   constructor(
@@ -31,6 +30,5 @@ export class ContentService {
         tap((val) => this._contentList$.next(val)),
       );
   }
-
 
 }
