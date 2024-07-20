@@ -20,11 +20,6 @@
     async
     src="https://cdn.amoanimals.com/prebiders/65df2430c6119531530487.js"
   ></script>
-  <!-- begin -->
-  <script async src="https://unpkg.com/embedo/embedo.min.js"></script>
-  <!-- you can change LAZY (embedo) if you want -->
-  <script src="https://cdn.amomama.de/hackathon/scripts/lazy-embedo.js"></script>
-  <!-- end -->
 </head>
 <body>
 <app-root></app-root>
@@ -48,6 +43,21 @@
       });
     }, scrollDelay);
   })();
+</script>
+<script>window.twttr = (function (d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+  t._e = [];
+  t.ready = function (f) {
+    t._e.push(f);
+  };
+  return t;
+}(document, "script", "twitter-wjs"));
 </script>
 </body>
 </html>
