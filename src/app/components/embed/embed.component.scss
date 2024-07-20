@@ -1,3 +1,10 @@
 :host {
   display: block;
+  padding: 0 14px;
+}
+
+::ng-deep {
+  .twitter-tweet {
+    margin: 0 !important;
+  }
 }
