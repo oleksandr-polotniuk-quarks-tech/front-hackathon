@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AdvComponent } from './components/adv/adv.component';
+import { EmbedComponent } from './components/embed/embed.component';
 import { VideoComponent } from './components/video/video.component';
 import { BlockContent, ContentModel, EmbedContent, ImageContent, TextContent } from './models/content.model';
 import { SanitizePipe } from './pipes/sanitize.pipe';
@@ -11,7 +12,7 @@ import { ContentService } from './services/content.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, AsyncPipe, JsonPipe, NgOptimizedImage, SanitizePipe, AdvComponent, VideoComponent],
+  imports: [RouterOutlet, AsyncPipe, JsonPipe, NgOptimizedImage, SanitizePipe, AdvComponent, VideoComponent, EmbedComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

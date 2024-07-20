@@ -18,7 +18,7 @@
         <app-video [id]="getId(item)"></app-video>
       }
       @case ('embed') {
-        <embed [src]="getUrl(item) | sanitize : 'resourceUrl'">
+        <app-embed [url]="getUrl(item)" [attr.data-frame-url]="getUrl(item)"></app-embed>
       }
     }
   }
