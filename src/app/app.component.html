@@ -2,7 +2,7 @@
   @for (item of list; track $index) {
     @switch (item.type) {
       @case ('image') {
-        <img [src]="getSrc(item) | sanitize : 'resourceUrl'" alt="">
+        <img [ngSrc]="getSrc(item) | sanitize : 'resourceUrl'" alt="" loading="lazy" fill>
       }
       @case ('title') {
         <h1>{{ getContent(item) }}</h1>
